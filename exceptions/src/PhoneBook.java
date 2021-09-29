@@ -56,8 +56,12 @@ class PhoneBook {
     }
 
     public void printInfo() {
-        for (Record record : book) {
-            record.printInfo();
+        if (book.isEmpty()) {
+            System.out.println("Телефонная книга пуста.");
+        } else {
+            for (Record record : book) {
+                record.printInfo();
+            }
         }
     }
 }
