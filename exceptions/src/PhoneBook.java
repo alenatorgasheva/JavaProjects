@@ -17,7 +17,7 @@ class PhoneBook {
         // метод сохраняет в справочнике новую запись
         // Если в справочнике есть запись с таким же номером телефона, выбросить проверяемое исключение PhoneNumberAlreadyExists.
         for (Record existingRecord : book) {
-            if (existingRecord.phoneNumber.equals(record.phoneNumber)) {
+            if (existingRecord.getPhoneNumber().equals(record.getPhoneNumber())) {
                 throw new PhoneNumberAlreadyExists();
             }
         }
@@ -30,10 +30,10 @@ class PhoneBook {
         // Если в новой записи не заполнено поле name и/или поле phoneNumber, выбросить проверяемое исключение RecordNotValid.
 
         for (Record existingRecord : book) {
-            if (existingRecord.id == record.id) {
-                if ((record.phoneNumber != null) || (record.name != null)) {
-                    book.remove(existingRecord);
-                    book.add(record);
+            if (existingRecord.getId() == record.getId()) {
+                if ((record.getPhoneNumber() != null) || (record.getName() != null)) {
+                    existingRecord.setPhoneNumber(record.getPhoneNumber());
+                    existingRecord.setName(record.getName());
                     return;
                 } else {
                     throw new RecordNotValid();
@@ -47,7 +47,7 @@ class PhoneBook {
         // удаляет запись из справочника по идентификатору
         // Если подходящая запись в справочнике не найдена - выбрасывается непроверяемое исключение RecordNotFound.
         for (Record existingRecord : book) {
-            if (existingRecord.id == id) {
+            if (existingRecord.getId() == id) {
                 book.remove(existingRecord);
                 return;
             }

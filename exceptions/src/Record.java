@@ -1,7 +1,7 @@
 class Record {
-    public long id;
-    public String phoneNumber;
-    public String name;
+    private long id;
+    private String phoneNumber;
+    private String name;
 
     public Record(long id, String num, String name) {
         this.id = id;
@@ -13,6 +13,26 @@ class Record {
         this.id = id;
         this.phoneNumber = null;
         this.name = null;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void printInfo() {

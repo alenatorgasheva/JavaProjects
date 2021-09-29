@@ -16,7 +16,7 @@ public class Main {
             book.createRecord(record3);
 
             // Проверка createRecord
-        book.createRecord(record4);
+//        book.createRecord(record4);
 
             // Проверка updateRecord
 //            book.updateRecord(record4);
