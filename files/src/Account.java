@@ -11,4 +11,12 @@ public class Account {
         this.email = email;
         this.password = password;
     }
+
+    public void printInfo() {
+        System.out.println(name + " " + bday + " " + email);
+    }
+
+    public String toCSV() {
+        return name + ";" + bday + ";" + email + ";" + password + "\n";
+    }
 }
