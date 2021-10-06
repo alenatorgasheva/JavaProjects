@@ -6,7 +6,9 @@ public interface AccountManager {
      * отсутствует, и создает новую запись, в противном случае
      * выбрасывает ошибку AccountAlreadyExistsException
      */
-    void register(Account account);
+
+    void register(Account newAccount) throws AccountAlreadyExistsException;
+
     /**
      * Метод возвращает Account, если для email+пароль есть
      * подходящая запись в базе и аккаунт не заблокирован.
@@ -17,11 +19,12 @@ public interface AccountManager {
      * Если для конкретного пользователя больше 5 неудачных
      * попыток авторизоваться, то аккаунт блокируется.
      */
-    Account login(String email, String password);
+    Account login(String email, String password) throws AccountBlockedException, WrongCredentialsException;
+
     /**
      * Метод удаляет пользователя из базы, если логин и пароль
      * введены верно. В противном случае выбрасывает
      * ошибку WrongCredentialsException
      */
-    void removeAccount(String email, String password);
+    void removeAccount(String email, String password) throws WrongCredentialsException;
 }
