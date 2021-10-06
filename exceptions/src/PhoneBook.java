@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class PhoneBook {
+public class PhoneBook {
     private List<Record> book;
 
     public PhoneBook() {

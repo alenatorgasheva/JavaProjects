@@ -7,7 +7,7 @@ public class Main {
         Record record3 = new Record(3, "+7-900-000-00-02", "Person C");
 
         Record record4 = new Record(4, "+7-900-000-00-00", "Person D");
-        Record record5 = new Record(3);
+        Record record5 = new Record(3, "", "   ");
         Record record6 = new Record(1, "+7-900-000-00-03", "Person A");
 
         try {
