@@ -5,7 +5,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         FileAccountManager manager = new FileAccountManager();
-        FailedLoginCounter counter = new FailedLoginCounter();
         String path = "C:\\Users\\1292354\\IdeaProjects\\JavaProjects\\files\\src\\file.csv";
 
         // Получение данных
@@ -44,19 +43,19 @@ public class Main {
                 System.out.println("ERROR: Account '" + email + "' is blocked.\n");
             } catch (WrongCredentialsException e) {
                 System.out.println("ERROR: Wrong SignIn data.\n");
-                counter.counterAdd();
+                FailedLoginCounter.getInstance().counterAdd();
             } finally {
                 if (enteredAccount != null) {
                     break;
                 }
-                if (counter.getCounter() == 5) {
+                if (FailedLoginCounter.getInstance().getCounter() == 5) {
                     try {
                         manager.findAccount(email).block();
                         System.out.println("Now account '" + email + "' is blocked.\n");
                     } catch (WrongCredentialsException e) {
                         System.out.println("Account '" + email + "' does not exist.\n");
                     }
-                    counter.updateCounter();
+                    FailedLoginCounter.getInstance().updateCounter();
                     break;
                 }
                 System.out.println("--------------------------------------------------");
