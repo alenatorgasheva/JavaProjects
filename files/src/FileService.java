@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public class FileService {
     private static FileService instance;
 
+    private FileService() {}
+
     public static synchronized FileService getInstance() {
         if (instance == null) {
             instance = new FileService();
@@ -14,19 +16,19 @@ public class FileService {
     public ArrayList<Account> readFile(String fileName) throws IOException {
         // чтение файла
         FileReader fileIn = null;
-        String data = new String();
+        String data = "";
 
         try {
             fileIn = new FileReader(fileName);
+            int a;
+            while ((a = fileIn.read()) != -1) {
+                data = data + (char) a;
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         finally {
             if (fileIn != null) {
-                int a;
-                while ((a = fileIn.read()) != -1) {
-                    data = data + (char) a;
-                }
                 fileIn.close();
             }
         }
