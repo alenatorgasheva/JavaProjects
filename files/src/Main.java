@@ -9,7 +9,7 @@ public class Main {
 
         // Получение данных
         System.out.println("--------------------------- Data ---------------------------");
-        manager.setData(FileService.readFile(path));
+        manager.setData(FileService.getInstance().readFile(path));
         for (Account account : manager.getData()) {
             account.printInfo();
         }
@@ -39,26 +39,27 @@ public class Main {
             String password = in.nextLine();
             try {
                 enteredAccount = manager.login(email, password);
+                System.out.println(FailedLoginCounter.getInstance().getCounter(email));
             } catch (AccountBlockedException e) {
                 System.out.println("ERROR: Account '" + email + "' is blocked.\n");
             } catch (WrongCredentialsException e) {
                 System.out.println("ERROR: Wrong SignIn data.\n");
-                FailedLoginCounter.getInstance().counterAdd();
+                FailedLoginCounter.getInstance().counterAdd(email);
+                if (FailedLoginCounter.getInstance().getCounter(email) == 5) {
+                    try {
+                        manager.findAccount(email).block();
+                        System.out.println("Now account '" + email + "' is blocked.\n");
+                    } catch (WrongCredentialsException e2) {
+                        System.out.println("Account '" + email + "' does not exist.\n");
+                    }
+                    FailedLoginCounter.getInstance().updateCounter(email);
+                    break;
+                }
             } finally {
                 if (enteredAccount != null) {
                     break;
                 }
-                if (FailedLoginCounter.getInstance().getCounter() == 5) {
-                    try {
-                        manager.findAccount(email).block();
-                        System.out.println("Now account '" + email + "' is blocked.\n");
-                    } catch (WrongCredentialsException e) {
-                        System.out.println("Account '" + email + "' does not exist.\n");
-                    }
-                    FailedLoginCounter.getInstance().updateCounter();
-                    break;
-                }
-                System.out.println("--------------------------------------------------");
+                System.out.println("------------------------------------------------------------");
                 System.out.println("Continue? (+ or -): ");
                 answer = in.nextLine();
             }
@@ -73,7 +74,7 @@ public class Main {
         String password = in.nextLine();
         try {
             manager.removeAccount(email, password);
-            System.out.println("Account '" + email + "' is deleted.");
+            System.out.println("Account '" + email + "' is deleted.\n");
             for (Account account : manager.getData()) {
                 account.printInfo();
             }
@@ -83,6 +84,6 @@ public class Main {
         }
 
         // Сохранение данных
-        FileService.writeFile(path, manager.getData());
+        FileService.getInstance().writeFile(path, manager.getData());
     }
 }

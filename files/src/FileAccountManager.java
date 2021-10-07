@@ -32,6 +32,10 @@ public class FileAccountManager implements AccountManager {
          */
         for (Account account : data) {
             if (account.getEmail().equals(email)) {
+                if (account.getBlocked()) {
+                    // если аккаунт заблокирован
+                    throw new AccountBlockedException();
+                }
                 if (account.getPassword().equals(password)) {
                     if (!account.getBlocked()) {
                         // если все хорошо

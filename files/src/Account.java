@@ -10,7 +10,7 @@ public class Account {
         this.bday = bday;
         this.email = email;
         this.password = password;
-        if (blocked == "true") {
+        if (blocked.equals("true")) {
             this.blocked = true;
         } else {
             this.blocked = false;

@@ -11,7 +11,7 @@ public class FileService {
         return instance;
     }
 
-    public static ArrayList<Account> readFile(String fileName) throws IOException {
+    public ArrayList<Account> readFile(String fileName) throws IOException {
         // чтение файла
         FileReader fileIn = null;
         String data = new String();
@@ -23,13 +23,11 @@ public class FileService {
         }
         finally {
             if (fileIn != null) {
-
                 int a;
                 while ((a = fileIn.read()) != -1) {
                     data = data + (char) a;
                 }
                 fileIn.close();
-
             }
         }
 
@@ -47,7 +45,7 @@ public class FileService {
         return accounts;
     }
 
-    public static void writeFile(String fileName, ArrayList<Account> accounts) throws IOException {
+    public void writeFile(String fileName, ArrayList<Account> accounts) throws IOException {
         // конвертирование коллекции аккаунтов в строку
         String dataCSV = "";
         for (Account account : accounts) {
