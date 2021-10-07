@@ -39,7 +39,6 @@ public class Main {
             String password = in.nextLine();
             try {
                 enteredAccount = manager.login(email, password);
-                System.out.println(FailedLoginCounter.getInstance().getCounter(email));
             } catch (AccountBlockedException e) {
                 System.out.println("ERROR: Account '" + email + "' is blocked.\n");
             } catch (WrongCredentialsException e) {
